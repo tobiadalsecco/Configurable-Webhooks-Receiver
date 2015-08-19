@@ -11,12 +11,13 @@
 #		branch and our working tree has the right files.
 #	
 # Written by: LM
+# Modified by Tobia Dalsecco
 #
 
 if [[ -n "$1" ]] ; then
-	PROJECT_NAME=$1
+	PROJECT_DIR=$1
 else
-	PROJECT_NAME="lm-blog"
+	PROJECT_DIR="no_project_dir"
 fi
 
 if [[ -n "$2" ]] ; then
@@ -25,14 +26,12 @@ else
 	BRANCH="master"
 fi
 
-cd /webroot/$PROJECT_NAME
+cd $PROJECT_DIR
 git reset --hard origin/$BRANCH
 git clean -f
 git pull
 git checkout $BRANCH
 
-# forever stop index.js
-# NODE_ENV=production forever start index.js
 echo "#-----------------------------------------------#"
-echo "#              Execution Completed              #"
+echo "#               Git Pull Completed              #"
 echo "#-----------------------------------------------#"

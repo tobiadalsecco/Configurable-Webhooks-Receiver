@@ -1,4 +1,3 @@
-Webhook_Example
+Configurable Webhooks Receiver
 ===============
 
-Simple example showing how to use github webhooks with NodeJS
