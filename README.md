@@ -3,5 +3,5 @@ Configurable Webhooks Receiver
 
 ####Usage
 ```javascript
-var cfhr = require('configurable-webhooks-receiver');
+var cwhr = require('configurable-webhooks-receiver');
 ```
