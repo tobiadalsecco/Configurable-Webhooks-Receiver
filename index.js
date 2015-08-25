@@ -12,7 +12,6 @@ module.exports = function(config){
 
 	var express = require('express'),
 		http = require('http'),
-		config = require('./config'),
 		app = express(),
 		isDeploying = false;
 
