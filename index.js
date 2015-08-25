@@ -35,31 +35,28 @@ module.exports = function(config){
 		app.post(baseUrl + depl.url, function (req, res) {
 
 			console.log('Triggering webhook: ' + baseUrl + depl.url);
+			console.log('Module deploy.sh path:' + __dirname + '/deploy.sh');
 
 			isDeploying = true;
-
-			console.log(__dirname);
 
 		 	var spawn = require('child_process').spawn,
 		     deploy = spawn('sh', [ __dirname + '/deploy.sh', depl.dir, depl.branch ]);
 
 	    deploy.stdout.on('data', function (data) {
-
 		  	console.log('[sh] ' + data);
-
-		  	var afterDeploy = spawn('sh', [ depl.afterDeploy.script ]);
-		  	afterDeploy.on('data', function (_data) {
-	        console.log('[sh]' + _data);
-	    	});
-		  	afterDeploy.on('close', function (code) {
-	        console.log('[After Deploy] Child process exited with code ' + code);
-	        isDeploying = false;
-	    	});
-
 			});
 
 	    deploy.on('close', function (code) {
 	        console.log('[deploy.sh] Child process exited with code ' + code);
+	        console.log('Now running after deploy script: ' + depl.afterDeploy.script);
+	        var afterDeploy = spawn('sh', [ depl.afterDeploy.script ]);
+			  	afterDeploy.on('data', function (_data) {
+		        console.log('[After Deploy]' + _data);
+		    	});
+			  	afterDeploy.on('close', function (code) {
+		        console.log('[After Deploy] Child process exited with code ' + code);
+		        isDeploying = false;
+		    	});
 	    });
 
 	    res.json(200, {message: 'WebHook received. Deploy triggered'});
