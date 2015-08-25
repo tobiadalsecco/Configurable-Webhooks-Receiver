@@ -1,12 +1,15 @@
 {
-  "name": "application-name",
+  "name": "Configurable-Webhooks-Receiver",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
     "express": "3.5.1",
-    "jade": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tobiadalsecco/Configurable-Webhooks-Receiver"
   }
 }
