@@ -38,8 +38,10 @@ module.exports = function(config){
 
 			isDeploying = true;
 
+			console.log(__dirname);
+
 		 	var spawn = require('child_process').spawn,
-		     deploy = spawn('sh', [ './deploy.sh', depl.dir, depl.branch ]);
+		     deploy = spawn('sh', [ __dirname + '/deploy.sh', depl.dir, depl.branch ]);
 
 	    deploy.stdout.on('data', function (data) {
 
