@@ -34,6 +34,8 @@ module.exports = function(config){
 
 		app.post(baseUrl + depl.url, function (req, res) {
 
+			console.log('Triggering webhook: ' + baseUrl + depl.url);
+
 			isDeploying = true;
 
 		 	var spawn = require('child_process').spawn,
@@ -41,21 +43,21 @@ module.exports = function(config){
 
 	    deploy.stdout.on('data', function (data) {
 
-		  	console.log(''+data);
+		  	console.log('[sh] ' + data);
 
 		  	var afterDeploy = spawn('sh', [ depl.afterDeploy.script ]);
 		  	afterDeploy.on('data', function (_data) {
-	        console.log(''+_data);
+	        console.log('[sh]' + _data);
 	    	});
 		  	afterDeploy.on('close', function (code) {
-	        console.log('Child process exited with code ' + code);
+	        console.log('[After Deploy] Child process exited with code ' + code);
 	        isDeploying = false;
 	    	});
 
 			});
 
 	    deploy.on('close', function (code) {
-	        console.log('Child process exited with code ' + code);
+	        console.log('[deploy.sh] Child process exited with code ' + code);
 	    });
 
 	    res.json(200, {message: 'WebHook received. Deploy triggered'});
