@@ -14,26 +14,11 @@
 # Modified by Tobia Dalsecco
 #
 
-if [[ -n "$1" ]] ; then
-	PROJECT_DIR=$1
-else
-	PROJECT_DIR="no_project_dir"
-fi
 
-if [[ -n "$2" ]] ; then
-	BRANCH=$2
-else
-	BRANCH="master"
-fi
-
-echo current repo is $PROJECT_DIR
-echo current branch is $BRANCH
-cd $PROJECT_DIR
-git reset --hard origin/$BRANCH
+cd $1
+git reset --hard origin/$2
 git clean -f
 git pull
-git checkout $BRANCH
+git checkout $2
 
-echo "#-----------------------------------------------#"
-echo "#               Git Pull Completed              #"
-echo "#-----------------------------------------------#"
+echo "Git Pull Completed"

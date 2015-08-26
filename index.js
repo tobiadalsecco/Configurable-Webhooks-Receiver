@@ -48,8 +48,8 @@ module.exports = function(config){
 
 	    deploy.on('close', function (code) {
 	        console.log('[deploy.sh] Child process exited with code ' + code);
-	        console.log('Now running after deploy script: ' + depl.afterDeploy.script);
-	        var afterDeploy = spawn('sh', [ depl.afterDeploy.script ]);
+	        console.log('Now running after deploy script: ' + depl.afterDeploy.dir + '/' + depl.afterDeploy.script);
+	        var afterDeploy = spawn('sh', [ depl.afterDeploy.dir + '/' + depl.afterDeploy.script ], { cwd: depl.afterDeploy.dir });
 			  	afterDeploy.on('data', function (_data) {
 		        console.log('[After Deploy]' + _data);
 		    	});
