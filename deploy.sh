@@ -26,6 +26,8 @@ else
 	BRANCH="master"
 fi
 
+echo current repo is $PROJECT_DIR
+echo current branch is $BRANCH
 cd $PROJECT_DIR
 git reset --hard origin/$BRANCH
 git clean -f
